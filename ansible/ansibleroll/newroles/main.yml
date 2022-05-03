@@ -1,0 +1,36 @@
+---
+- name: Main Playbook for File Folder and User cration
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - var.yml
+  tasks:
+  - name: Create User
+    include_role:
+        name: user
+    tags:
+      - usertag 
+      
+  - name: Create Folder
+    include_role:
+        name: folder
+    tags:
+      - foldertag
+    
+  - name: Create File
+    include_role:
+        name: file
+    tags:
+    - filetag
+
+
+# Tasks
+# 3 different roll
+# 1 - adding user  -shell/command useradd debug
+# 2 create a file  - shell/command touch debug
+# 3 create folder  - shell/mkdir debug
+
+
+# to execuse use password command
+# --ask-become-pass
+    

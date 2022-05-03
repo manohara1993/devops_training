@@ -1,0 +1,25 @@
+---
+- name: Sample playbook
+  hosts: localhost
+  gather_facts: false
+  vars: 
+    package_name: httpd
+    host2: database
+  tasks:
+  # - name: Install The latest Package
+  #   yum:
+  #     name: "{{package_name}}"
+  #     state: latest
+
+  # - name: Copy file with owner and permissions
+  #   copy:
+  #     src: /srv/myfiles/foo.conf
+  #     dest: /etc/foo.conf
+
+  - name: Execute the command in remote shell; stdout goes to the specified file on the remote
+    command: touch text2.txt
+    register: filecreate
+  
+  - name: Printing host 1 value
+    debug:
+      var: filecreate

@@ -1,0 +1,28 @@
+---
+- name: Main Playbook for Cowin
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - var.yml
+
+  tasks:
+  - name: Calling Statelist Roll
+    include_role:
+        name: statelist
+    tags:
+      - statelisttag 
+      - nametag
+      
+  - name: Calling StateDetails Roll
+    include_role:
+        name: statedetails
+    tags:
+      - statetag
+    
+  - name: Calling OTP Roll
+    include_role:
+        name: otp
+    tags:
+    - otp
+
+    

@@ -1,0 +1,27 @@
+---
+- name: Sample playbook
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - var.yml
+  tasks:
+  #  - name: print variable names
+  #    debug:
+  #      msg: "Host name is {{ item }}"
+  #    with_items:
+  #     - "{{ name }}" 
+  
+  - name: Geting the District Names from state
+    uri:
+      url: "https://{{cowin_host}}/api/v2/admin/location/districts/{{item}}"
+    register: districtoutput
+    loop:
+       - state_id
+    # tags:
+    #   - statedetails
+
+  - name: printing Districts output
+    debug:
+      var: districtoutput
+    # tags:
+    #   - statedetails

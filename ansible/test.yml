@@ -1,0 +1,12 @@
+--- 
+- name: update web servers
+  hosts: localhost
+  remote_user: root
+
+  tasks:
+  - name: ensure apache is at the latest version
+    # apt:
+    #   name: sudo httpd
+    #   state: latest
+    #   become: true
+    apt: name=apache2 update_cache=yes state=latest

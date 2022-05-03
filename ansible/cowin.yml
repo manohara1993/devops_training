@@ -1,0 +1,84 @@
+---
+- name: Cowin Playbook
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - var.yml
+
+  tasks:
+  - name: Geting the name of State List
+    block:
+    - name: Geting the name of State List
+      uri:
+        url: "https://{{cowin_host}}/api/v2/admin/location/states"
+      register: stateoutput
+      tags:
+          - statelists
+    rescue:
+    - name: Print when errors
+      debug:
+        msg: 'I caught an error, can do stuff here to fix it, :-)'
+
+  - name: printing state output
+    debug:
+      var: stateoutput.status
+    tags:
+    - statelists
+  
+  - name: Geting the District Names from state
+    uri:
+      url: "https://{{cowin_host}}/api/v2/admin/location/districts/{{state_id}}"
+    register: districtoutput
+    tags:
+    - statedetails
+
+  - name: printing Districts output
+    debug:
+      var: districtoutput.status
+    tags:
+    - statedetails
+  
+  - name: Creating variable for state list
+    set_fact:
+      namevalue: districtoutput.status
+  
+  - name: Printing variable
+    debug:
+      var: "namevalue"
+
+  # - name: Generating Otp for Cowin
+  #   uri:
+  #     url: "https://{{cowin_host}}/api/v2/auth/public/generateOTP"
+  #     method: POST
+  #     body_format: json
+  #     body:
+  #        {
+  #         "mobile": "{{mobile_no}}"
+  #        }       
+  #     status_code: [200, 204]
+  #   register: otp_output
+  #   tags:
+  #     - otpdetails
+    
+  # - name: printing OPT output
+  #   debug:
+  #     var: otp_output
+  #   tags:
+  #     - otpdetails
+  #   when: stateoutput.json.states
+  
+  - name: Get Slot Details
+    uri:
+      url: "https://{{cowin_host}}/api/v2/appointment/sessions/public/findByPin?pincode={{pin_code}}&date={{date}}"
+    register: slot_info
+    
+    when: 
+      - namevalue == "200"
+
+  - name: printing Slot info
+    debug:
+      var: slot_info
+ 
+    when: 
+      - namevalue == "200"
+      

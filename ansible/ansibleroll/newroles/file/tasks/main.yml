@@ -1,0 +1,14 @@
+---  
+- name: Create a new File 
+  command: "{{ item }}" 
+  with_items:
+    - touch {{file_name}}
+  register: filecreate
+  tags:
+    - filetag
+
+- name: Printing file creation Result
+  debug:
+    var: filecreate
+  tags:
+    - filetag

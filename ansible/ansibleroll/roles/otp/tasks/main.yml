@@ -1,0 +1,21 @@
+--- 
+- name: Generating Otp for Cowin
+  uri:
+    url: "https://{{cowin_host}}/api/v2/auth/public/generateOTP"
+    method: POST
+    body_format: json
+    body:
+        {
+        "mobile": "{{mobile_no}}"
+        }       
+    status_code: [200, 204]
+  register: otp_output
+  tags:
+    - otp
+- name: printing OPT output
+  debug:
+    var: otp_output
+  tags:
+    - otp
+
+

@@ -1,0 +1,16 @@
+echo -n "23456" | ansible-valut
+
+echo -n 'letmein' | ansible-vault encrypt_string --vault-id dev@a_password_file --stdin-name 'db_password'
+
+
+echo -n 'admin123' | ansible-vault encrypt_string --vault-id dev@./.valtpass --stdin-name 'db_pass'
+
+
+#Write a Play book 
+
+
+Tasks
+3 different roll
+1 - adding user  -shell/command useradd debug
+2 create a file  - shell/command touch debug
+3 create folder  - shell/mkdir debug

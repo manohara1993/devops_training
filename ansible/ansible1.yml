@@ -1,0 +1,54 @@
+---
+- name: Sample playbook
+  hosts: localhost
+  gather_facts:
+  vars: 
+    host1: webserver
+    host2: database
+  tasks:
+  - name: Printing host 1 value
+    debug:
+      msg: "{{host1}}"
+  - name: Printing host 2 value
+    debug:
+      var: host2
+      #msg: "{{host2}}" 
+
+
+# ---
+# - name: Sample playbook
+#   host: localhost
+#   vars:
+#     host: webserver
+#   tasks:
+#   - name: Printing Sample
+#     debug:
+#       msg: "{{ host }}"
+#   - name: Printing Sample
+#     debug:
+#       msg: "test print"
+
+# - name: Sample playbook
+#   host: localhost
+#   tasks:
+#   - name: Printing Sample
+#     debug:
+#       msg: "test print"
+#   - name: Printing Sample
+#     debug:
+#       msg: "test print"
+
+# ---
+#   - name: Playbook
+#     hosts: webservers
+#     become: yes
+#     become_user: root
+#     tasks:
+#       - name: ensure apache is at the latest version
+#         yum:
+#           name: httpd
+#           state: latest
+#       - name: ensure apache is running
+#         service:
+#           name: httpd
+#           state: started

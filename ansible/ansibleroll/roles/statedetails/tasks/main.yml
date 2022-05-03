@@ -1,0 +1,14 @@
+--- 
+- name: Geting the District Names from state
+  uri:
+    url: "https://{{cowin_host}}/api/v2/admin/location/districts/{{state_id}}"
+  register: districtoutput
+  tags:
+    - statetag
+
+- name: printing Districts output
+  debug:
+    var: districtoutput.json.districts
+  tags:
+    - statetag
+

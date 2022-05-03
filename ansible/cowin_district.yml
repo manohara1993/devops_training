@@ -1,0 +1,22 @@
+---
+- name: Cowin Playbook
+  hosts: localhost
+  gather_facts: false
+  vars: 
+    cowin_host: cdn-api.co-vin.in
+    state_id: 32
+
+  tasks:  
+  - name: Geting the District Names from state
+    uri:
+      url: "https://{{cowin_host}}/api/v2/admin/location/districts/{{state_id}}"
+    register: districtoutput
+    tags:
+    - statedetails
+
+  - name: printing Districts output
+    debug:
+      var: districtoutput.json.districts
+    tags:
+    - statedetails
+

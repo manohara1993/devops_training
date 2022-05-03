@@ -1,0 +1,14 @@
+---  
+- name: Create a Folder File 
+  command: "{{ item }}" 
+  with_items:
+    - mkdir {{folder_name}}
+  register: foldercreate
+  tags:
+    - foldertag
+
+- name: Printing Folder creation Result
+  debug:
+    var: foldercreate
+  tags:
+    - foldertag

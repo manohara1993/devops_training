@@ -1,0 +1,19 @@
+---
+- name: Geting the name of State List
+  uri:
+    url: "https://{{cowin_host}}/api/v2/admin/location/states"
+  register: stateoutput
+  tags:
+    - statelisttag
+
+- name: printing state output
+  debug:
+    var: stateoutput.json.states
+  tags:
+    - statelisttag
+    
+- name: printingname
+  debug:
+    msg: "Manohara"
+  tags:
+    - nametag

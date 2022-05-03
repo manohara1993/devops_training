@@ -1,0 +1,17 @@
+---  
+- name: Create a User 
+  become: true
+  command: "{{ item }}"  
+  with_items:
+    - useradd {{user_name}}
+  register: usercreate
+  tags:
+    - usertag
+
+- name: Printing User creation Result
+  debug:
+    var: usercreate
+  tags:
+    - usertag
+
+
